@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{84C2B1A9-995A-485A-BDBD-4002BBEF8C79}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataAccess</RootNamespace>
+    <AssemblyName>DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Context\ContextClinic.cs" />
+    <Compile Include="Entity\Accessed.cs" />
+    <Compile Include="Entity\City.cs" />
+    <Compile Include="Entity\Country.cs" />
+    <Compile Include="Entity\Diagonostics.cs" />
+    <Compile Include="Entity\Group.cs" />
+    <Compile Include="Entity\Modules.cs" />
+    <Compile Include="Entity\Patient.cs" />
+    <Compile Include="Entity\Prescription.cs" />
+    <Compile Include="Entity\Reservation.cs" />
+    <Compile Include="Entity\Speciality.cs" />
+    <Compile Include="Entity\Sysptom.cs" />
+    <Compile Include="Entity\TestOrder.cs" />
+    <Compile Include="Entity\Users.cs" />
+    <Compile Include="Entity\Visit.cs" />
+    <Compile Include="GenericRepository\Generic.cs" />
+    <Compile Include="GenericRepository\IGeneric.cs" />
+    <Compile Include="Migrations\201912121330180_clinic1.cs" />
+    <Compile Include="Migrations\201912121330180_clinic1.Designer.cs">
+      <DependentUpon>201912121330180_clinic1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912151216206_clinicSystem.cs" />
+    <Compile Include="Migrations\201912151216206_clinicSystem.Designer.cs">
+      <DependentUpon>201912151216206_clinicSystem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009141646399_mahmoud.cs" />
+    <Compile Include="Migrations\202009141646399_mahmoud.Designer.cs">
+      <DependentUpon>202009141646399_mahmoud.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="obj\Debug\DataAccess.csproj.GenerateResource.Cache" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201912121330180_clinic1.resx">
+      <DependentUpon>201912121330180_clinic1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912151216206_clinicSystem.resx">
+      <DependentUpon>201912151216206_clinicSystem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009141646399_mahmoud.resx">
+      <DependentUpon>202009141646399_mahmoud.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="obj\Debug\DataAccess.Migrations.clinic1.resources" />
+    <EmbeddedResource Include="obj\Debug\DataAccess.Migrations.clinicSystem.resources" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\DataAccess.dll" />
+    <Content Include="bin\Debug\DataAccess.pdb" />
+    <Content Include="obj\Debug\DataAccess.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\DataAccess.dll" />
+    <Content Include="obj\Debug\DataAccess.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+    <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

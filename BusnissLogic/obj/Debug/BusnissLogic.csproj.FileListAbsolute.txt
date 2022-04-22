@@ -1,0 +1,15 @@
+C:\inetpub\wwwroot\ClinicSystem\BusnissLogic\bin\Debug\BusnissLogic.dll.config
+C:\inetpub\wwwroot\ClinicSystem\BusnissLogic\bin\Debug\BusnissLogic.dll
+C:\inetpub\wwwroot\ClinicSystem\BusnissLogic\bin\Debug\BusnissLogic.pdb
+C:\inetpub\wwwroot\ClinicSystem\BusnissLogic\bin\Debug\DataAccess.dll
+C:\inetpub\wwwroot\ClinicSystem\BusnissLogic\bin\Debug\EntityFramework.dll
+C:\inetpub\wwwroot\ClinicSystem\BusnissLogic\bin\Debug\EntityFramework.SqlServer.dll
+C:\inetpub\wwwroot\ClinicSystem\BusnissLogic\bin\Debug\DataAccess.pdb
+C:\inetpub\wwwroot\ClinicSystem\BusnissLogic\bin\Debug\EntityFramework.xml
+C:\inetpub\wwwroot\ClinicSystem\BusnissLogic\bin\Debug\EntityFramework.SqlServer.xml
+C:\inetpub\wwwroot\ClinicSystem\BusnissLogic\obj\Debug\BusnissLogic.dll
+C:\inetpub\wwwroot\ClinicSystem\BusnissLogic\obj\Debug\BusnissLogic.pdb
+C:\inetpub\wwwroot\ClinicSystem\BusnissLogic\bin\Debug\DataAccess.dll.config
+C:\inetpub\wwwroot\ClinicSystem\BusnissLogic\obj\Debug\BusnissLogic.csprojAssemblyReference.cache
+C:\inetpub\wwwroot\ClinicSystem\BusnissLogic\obj\Debug\BusnissLogic.csproj.CoreCompileInputs.cache
+C:\inetpub\wwwroot\ClinicSystem\BusnissLogic\obj\Debug\BusnissLogic.csproj.CopyComplete

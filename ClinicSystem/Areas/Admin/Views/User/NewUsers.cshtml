@@ -1,0 +1,508 @@
+﻿
+@{
+    ViewBag.Title = "NewUsers";
+    Layout = "~/Views/Shared/HomePage.cshtml";
+}
+
+            @section Head{
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    var id = '@ViewBag.x';
+                    if (id != 0) {
+                        $.ajax({
+                            type: 'get',
+                            url: '/ClinicApi/api/Module/edit?id=' + id,
+                            contentType: 'application/json',
+                            dataType:'Json',
+                            data: '{}',
+                            success: function (data) {
+                                debugger;
+                                $("#txtFName").val(data.FName);
+                                 $("#txtLName").val(data.LName);
+                               
+                                 $("#Gender").val(data.Gender);
+                                 $("#txtBirthDate").val(data.BirthDate);
+                                 $("#txtProfilePicture").val(data.ProfilePicture);
+                                $("#chkIsDoctor").val(data.IsDoctor);
+                                 $("#speciality").val(data.Speciality_ID);
+                                 $("#txtPhone").val(data.PhoneNumber);
+                                 $("#txtEmail").val(data.Email);
+                                 $("#txtAddress").val(data.Address);
+                                 $("#txtUserName").val(data.UserName);
+                                 $("#txtPassword").val(data.Password);
+                                 $("#txtCounfirmPassword").val(data.ConfirmPassword);
+                                 $("#EffictiveDate").val(data.EffictiveDate);
+                                 $("#txtExpiryDate").val(data.ExpiryDate);
+                                
+                                 $("#chkStatus").val(data.Status);
+                                 $("#txtStatusDate").val(data.StatusDate); 
+                                 $("#slcGroup").val(data.Group_ID);
+                            },
+                            Error: function (error) {
+                                debugger;
+                                alert(error.responseText);
+                            }
+
+                        })
+
+                    }
+                    else {
+
+                    }
+
+
+
+                    $("#btnDiscared").click(function () {
+                        debugger;
+                        window.location = '@Url.Action("UsersList", "User")';
+
+                    });
+                    $("#chkIsDoctor").click(function () {
+                        debugger;
+                        var check = $("#chkIsDoctor");
+                        if (check.is(":checked") == true) {
+                            $("#lblspeciality").css('display', 'block')
+
+                        }
+                        else {
+                            $("#lblspeciality").css('display', 'none')
+                        }
+
+
+                    });
+
+                    $.ajax({
+                        type: 'get',
+                        url: '/ClinicApi/api/User/FillGroup',
+                        contentType: 'application/json;charset=utf-8',
+                        dataType: 'Json',
+                        data: '{}',
+
+                        success: function (data) {
+                            debugger;
+                            $.each(data, function (key, value) {
+                                $('#slcGroup').append('<option value=' + value.ID + '>' + value.Name + '</option>');
+                            });
+                        },
+
+                        error: function (error) {
+                            debugger;
+                            alert(error.responseText);
+                        }
+                    });
+
+                    
+                    $.ajax({
+                        type: 'get',
+                        url: '/ClinicApi/api/User/Fill',
+                        contentType: 'application/json;charset=utf-8',
+                        dataType: 'Json',
+                        data: '{}',
+
+                        success: function (data) {
+                            debugger;
+                            $.each(data, function (key, value) {
+                                $('#speciality').append('<option value=' + value.ID + '>' + value.Name + '</option>');
+                            });
+                        },
+
+                        error: function (error) {
+                            debugger;
+                            alert(error.responseText);
+                        }
+                    });
+                    $("#btnSave").click(function () {
+                        debugger;
+                        var info = new Object();
+                        info.FName = $("#txtFName").val();
+                        info.LName = $("#txtLName").val();
+                        //if ($("#Gender").is(':checked')) {
+                        //    return info.Gender = 1;
+                        //}
+                        //else {
+                        //    return info.Gender = 0;
+                        //}
+                        info.Gender = $("#Gender").val();
+                        info.BirthDate = $("#txtBirthDate").val();
+                        info.ProfilePicture = $("#txtProfilePicture").val();
+                        info.IsDoctor = $("#chkIsDoctor").val();
+                        info.Speciality_ID = $("#speciality").val();
+                        info.PhoneNumber = $("#txtPhone").val();
+                        info.Email = $("#txtEmail").val();
+                        info.Address = $("#txtAddress").val();
+                        info.UserName = $("#txtUserName").val();
+                        info.Password = $("#txtPassword").val();
+                        info.ConfirmPassword = $("#txtCounfirmPassword").val();
+                        info.EffictiveDate = $("#EffictiveDate").val();
+                        info.ExpiryDate = $("#txtExpiryDate").val();
+                        //if ($("#chkStatus").is(':checked')) {
+                        //    return info.Status = 1;
+                        //}
+                        //else {
+                        //    return info.Status = 0;
+                        //}
+                        //info.Status = $("#chkStatus").val();
+                        info.StatusDate = $("#txtStatusDate").val(); slcGroup
+                        info.Group_ID = $("#slcGroup").val();
+
+                        $.ajax({
+                            type: 'post',
+                            url: '/ClinicApi/api/User/insertuse',
+                            contentType: 'application/json;charset=utf-8',
+                            datatype: 'Json',
+                            data: JSON.stringify(info),
+                            success: function (data) {
+                                debugger;
+                                alert("succsess");
+
+                            },
+
+                            error: function (error) {
+                                debugger;
+                                alert(error.responseText);
+                            }
+                        })
+                    })
+
+                    $("#btnUpdate").click(function () {
+                        debugger;
+                        var Gender;
+                        var Status;
+                        if ($("#Gender").is(':checked')) {
+                             Gender = 1;
+                        }
+                        else {
+                             Gender = 0;
+                        }
+                        if ($("#chkStatus").is(':checked')) {
+                             Status = 1;
+                        }
+                        else {
+                             Status = 0;
+                        }
+                        var update = {
+                            'ID': 13,
+                            'FName': $("#txtFName").val(),
+                            'LName': $("#txtLName").val(),
+                            'Gender': $("#Gender").val(),
+                            
+                            'BirthDate': $("#txtBirthDate").val(),
+                            'ProfilePicture': $("#txtProfilePicture").val(),
+                            'IsDoctor': $("#chkIsDoctor").val(),
+                            'Speciality_ID': $("#speciality").val(),
+                            'PhoneNumber': $("#txtPhone").val(),
+                            'Email': $("#txtEmail").val(),
+                            'Address': $("#txtAddress").val(),
+                            'UserName': $("#txtUserName").val(),
+                            'Password': $("#txtPassword").val(),
+                            'ConfirmPassword': $("#txtCounfirmPassword").val(),
+                            'EffictiveDate': $("#EffictiveDate").val(),
+                            'ExpiryDate': $("#txtExpiryDate").val(),
+                            'Status': $("#chkStatus").val(),
+
+                            'StatusDate': $("#txtStatusDate").val(),
+                            'Group_ID': $("#slcGroup").val(),
+                        }
+                        $.ajax({
+                            type: 'post',
+                            url: '/ClinicApi/api/User/updateuser',
+                            contentType: 'application/json;charset=utf-8',
+                            datatype: 'json',
+                            data: JSON.stringify(update),
+                            success: function (data) {
+                                debugger;
+                                alert("succsess");
+
+                            },
+
+                            error: function (error) {
+                                debugger;
+                                alert(error.responseText);
+                            }
+                        });
+                    });
+
+                });
+               
+    </script>
+            }
+            @section body{
+            <div class="container x_panel">
+                <div class="row x_title ">
+                    <div class="col-lg-8 col-md-8 col-sm-7 col-xs-7">
+                        <h4 style="color:blue">New User</h4>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+
+                        <button type="button" id="btnSave" class="btn btn-default btn-sm btn btn-success ">
+                            <span class="glyphicon glyphicon-floppy-disk"></span> Save
+                        </button>
+
+                        <button type="button" id="btnDiscared" class="btn btn-default btn-sm btn btn-danger">
+                            <span class="glyphicon glyphicon-trash" id="btnDiscared"></span> Discared
+                        </button>
+                        <button type="button"  id="btnUpdate" class="btn btn-default btn-sm btn btn-danger">
+                            <span class="glyphicon glyphicon-trash" id="btnDiscared"></span>Update
+                        </button>
+
+
+                    </div>
+                </div>
+
+                <div class="row x_title">
+                    <div class="col-lg-3 col-md-4 col-sm-5 col-xs-5">
+                        <h4>Basic Information</h4>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-5 col-sm-8 col-xs-8  col-lg-offset-2 ">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ">
+                            <label id="lblFName">First Name</label>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+
+                            <div class="input-group form-group">
+                                <input type="text" class="form-control" id="txtFName" name="txtFName" style="width:144px">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label id="lblFName">Last Name</label>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+
+                            <div class="input-group form-group">
+                                <input type="text" class="form-control" id="txtLName" name="txtLName" style="width:144px">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label id="lblFName">Gender</label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <input type="radio" name="Gender" id="Gender" />Male
+                            <input type="radio" name="Gender" id="Gender" />Female
+                        </div>
+                    </div>
+
+                    <div class="row">
+                     
+                        
+                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label id="lblFName">Birth Date</label>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            
+                            <div class="input-group form-group">
+                                <input type="date" class="form-control" id="txtBirthDate"  style="width:144px">
+                                <span class="input-group-addon"><i class="fa fa-calendar form-control-feedback"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label id="lblFName">Profile Picture</label>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            <div class="input-group form-group">
+
+                                @*<input type="text" style="width: 100px" class="form-control" id="txtProfilePicture" name="txtProfilePicture" />*@
+                                <span class="input-group-addon">
+                                    <input type="file" id="btnProfilePicture" name=" btnupload" value="Upload" style="width: 160px" @*style=" margin-left:22px"*@ />
+                                </span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    @*<div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">Button</button>
+                </div>
+            </div>*@
+
+                    <div class="row">
+
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1  col-lg-offset-6 col-md-offset-6 col-sm-offset-6 col-xs-offset-6 ">
+                            <input type="checkbox" id="chkIsDoctor" name="chkIsDoctor" />
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <label id="lblIsDoctor" >Is Doctor</label>
+                        </div>
+
+                    </div>
+                    <div class="row" style="display:none" id="lblspeciality">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3  col-lg-offset-5 col-md-offset-5 col-sm-offset-5 col-xs-offset-5 ">
+                            <label>speciality</label>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <select id="speciality"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3 col-lg-offset-2 col-md-offset-2 col-sm-offset-1 col-xs-offset-1 ">
+                    <img src="~/Images1/person.png" style="width:100px;height:100px" />
+                </div>
+
+                <div class="x_panel">
+                    <div class="row x_title">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
+                            <h4>Contact Information</h4>
+                        </div>
+
+                    </div>
+                    <div class="row ">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="row form-group">
+                                <div class="col-lg-2 col-md-3 col-sm-2 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3  ">
+                                    <label id="lblPhone">Phone Number</label>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                                    <input type="text" id="txtPhone" name="txtPhone" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="row form-group">
+                                <div class="col-lg-2 col-md-3 col-sm-2 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3  ">
+                                    <label id="lblEmail">Email</label>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <input type="text" id="txtEmail" name="txtEmail" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="row form-group">
+                                <div class="col-lg-2 col-md-3 col-sm-2 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3    ">
+                                    <label id="lblAddress">Address</label>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                                    <input type="text" id="txtAddress" name="txtAddress" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="x_panel">
+                    <div class="row x_title">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
+                            <h4>Acount Information</h4>
+                        </div>
+
+                    </div>
+
+
+                        <div class="row form-group">
+                            <div class="col-lg-2 col-md-3 col-sm-2 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3  ">
+                                <label id="lblUserName">User Name</label>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                                <input type="text" id="txtUserName" name="txtUserName" class="form-control" />
+                            </div>
+                        </div>
+
+
+                        <div class="row form-group">
+                            <div class="col-lg-2 col-md-3 col-sm-2 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3  ">
+                                <label id="lblPassword">Password</label>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                <input type="text" id="txtPassword" name="txtPassword" class="form-control" />
+                            </div>
+                        </div>
+
+
+                        <div class="row form-group">
+                            <div class="col-lg-2 col-md-3 col-sm-2 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3    ">
+                                <label id="lblCounfirmPassword">Counfirm Password</label>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                                <input type="text" id="txtCounfirmPassword" name="txtCounfirmPassword" class="form-control" />
+                            </div>
+                        </div>
+
+
+
+                        <div class="row form-group">
+                            <div class="col-lg-2 col-md-3 col-sm-2 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3  ">
+                                <label id="lblEffictiveDate">Effictive Date</label>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+
+                                <div class="input-group">
+                                    <input type="date" class="form-control" id="EffictiveDate" name="EffictiveDate">
+                                    <span class="input-group-addon"><i class="fa fa-calendar form-control-feedback"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row form-group">
+                            <div class="col-lg-2 col-md-3 col-sm-2 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3  ">
+                                <label id="lblExpiryDate">Expiry Date</label>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+
+                                <div class="input-group">
+                                    <input type="date" class="form-control" id="txtExpiryDate" name="txtExpiryDate">
+                                    <span class="input-group-addon"><i class="fa fa-calendar form-control-feedback"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row form-group">
+                            <div class="col-lg-2 col-md-3 col-sm-2 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3  ">
+                                <label id="lblStatus">Status:</label>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                                <input type="checkbox" id="chkStatus" name="chkStatus" />Active
+                            </div>
+                        </div>
+
+
+                        <div class="row form-group">
+                            <div class="col-lg-2 col-md-3 col-sm-2 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3  ">
+                                <label id="lblStatusDate">Status Date</label>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+
+                                <div class="input-group">
+                                    <input type="date" class="form-control" id="txtStatusDate" name="txtStatusDate">
+                                    <span class="input-group-addon"><i class="fa fa-calendar form-control-feedback"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row form-group">
+                            <div class="col-lg-2 col-md-3 col-sm-2 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3  ">
+                                <label id="lblSubModule">Group</label>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                                <select id="slcGroup" class="form-control">
+                                    
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+            </div>
+
+
+            }
+

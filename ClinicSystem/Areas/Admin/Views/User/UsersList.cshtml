@@ -1,0 +1,167 @@
+﻿@model ClinicSystem.Areas.Admin.Models.UseresVM
+@{
+    ViewBag.Title = "UsersList";
+    Layout = "~/Views/Shared/HomePage.cshtml";
+}
+@section Head{
+    <script type="text/javascript">
+        function del(id)
+        {
+            debugger;
+            $.ajax({
+                type: 'post',
+                url: '/ClinicApi/api/User/Removee/'+ id,
+                contentType: 'application/json',
+                dataType: 'Json',
+                data: '{}',
+                success: function () {
+                    debugger;
+                    alert("Success")
+                },
+                error: function (error) {
+                    debugger;
+                    alert(error.responseText);
+                }
+
+            })
+        }
+        function Edit(id)
+        {
+            debugger;
+            window.location = '@Url.Action("NewUsers/id", "User")'.replace('id',id);
+        }
+        
+
+
+        });
+    </script>}
+@section body{
+    <div class="container x_panel">
+    <div class="row x_title ">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" >
+            <h4 style="color:blue">User</h4>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <img src="~/Images1/Icons/add_Account.png" style="width:50px;height:50px" />
+        </div>
+    </div>
+        <div class="row x_title">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <input type="checkbox" name="chkSearch" />
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 ">
+
+                <input type="text" name="txtSearch" class="form-control" placeholder="Search" />
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-lg-offset-5 col-md-offset-4 col-sm-offset-4 col-xs-offset-4">
+                <button type="button" class=" btn btn-light " >Search</button>
+            </div>
+
+        </div>
+
+        @{
+            var data = from x in Model.UserLi
+                       select x;
+                       
+        }
+        @foreach (var item in data)
+        {
+             <div class="row x_title">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <input type="checkbox" name="chkPerson" />
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                <img src="~/Images1/person.png" style="width: 50px; height: 50px; " />
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <h5>@item.FName @item.LName</h5>
+            </div>
+            <div class="col-lg-5 col-md-6 col-sm-8 col-xs-8 col-lg-offset-2 col-md-offset-2 col-sm-offset-0 col-xs-offset-0">
+
+                <button type="button" id="btnEdit" onclick="Edit(@item.ID)" class=" btn btn-dark">
+                    <span class="glyphicon glyphicon-edit"></span> Edit
+                </button>
+
+                <button type="button" class="btn btn-danger" onclick="del(@item.ID)">
+                    <span class="glyphicon glyphicon-trash"></span> Delete
+                </button>
+
+                <button type="button" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-plus"></span> Change Status
+                </button>
+
+            </div>
+
+            
+
+
+        </div>
+        }
+
+
+
+
+       
+        @*<div class="row x_title">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <input type="checkbox" name="chkPerson" />
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                <img src="~/Images1/person.png" style="width: 50px; height: 50px; " />
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <h5>Mahmoud Mathhar AlMassri</h5>
+            </div>
+            <div class="col-lg-5 col-md-6 col-sm-8 col-xs-8 col-lg-offset-2 col-md-offset-2 col-sm-offset-0 col-xs-offset-0">
+
+                <button type="button" class=" btn btn-dark">
+                    <span class="glyphicon glyphicon-edit"></span> Edit
+                </button>
+
+                <button type="button" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-trash"></span> Delete
+                </button>
+
+                <button type="button" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-plus"></span> ChangeStatus
+                </button>
+
+            </div>
+
+
+
+
+        </div>
+        <div class="row x_title">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <input type="checkbox" name="chkPerson" />
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                <img src="~/Images1/person.png" style="width: 50px; height: 50px; " />
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <h5>Mahmoud Mathhar AlMassri</h5>
+            </div>
+            <div class="col-lg-5 col-md-6 col-sm-8 col-xs-8 col-lg-offset-2 col-md-offset-2 col-sm-offset-0 col-xs-offset-0 ">
+
+                <button type="button" class=" btn btn-dark">
+                    <span class="glyphicon glyphicon-edit"></span> Edit
+                </button>
+
+                <button type="button" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-trash"></span> Delete
+                </button>
+
+                <button type="button" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-plus"></span> ChangeStatus
+                </button>
+
+            </div>
+
+
+
+
+        </div>*@
+</div>
+        }
+

@@ -1,0 +1,106 @@
+﻿@model ClinicSystem.Areas.Admin.Models.GroupVM
+@{
+    ViewBag.Title = "GroupList";
+    Layout = "~/Views/Shared/HomePage.cshtml";
+}
+@section Head{
+    <script type="text/javascript">
+        function Edit(id)
+        {
+            debugger;
+            window.location = '@Url.Action("New_Group/id", "Group")'.replace('id', id);
+        }
+        function del(id)
+        {
+            
+            debugger;
+            $.ajax({
+                type:'post',
+                url:'/ClinicApi/api/Group/Removee/'+id,
+                contentType:'application/json',
+                datatType:'Json',
+                data:'{}',
+                success:function (){
+                    debugger;
+                    alert("Success")
+                },
+                error: function (error) {
+                    debugger;
+                    alert(error.responseText);
+                }
+
+            })
+        }
+
+
+
+
+    </script>}
+@section body{
+    <div class="container x_panel">
+        <div class="row x_title ">
+            <div class="col-lg-10 col-md-8 col-sm-8 col-xs-8">
+                <h4 style="color:blue">Group</h4>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
+
+                <img src="~/Images1/Icons/passed-exam.png" style="width:50px;height:50px" />
+            </div>
+        </div>
+        <div class="row x_title">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                <input type="checkbox" name="chkSearchGroup" />
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 ">
+
+                <input type="text" name="txtSearchGroup" class="form-control" placeholder="Search" />
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <button type="button" class=" btn btn-light">
+                    <span class="glyphicon glyphicon-search"></span> Search
+                </button>
+            </div>
+
+        </div>
+
+
+        @{
+            var main = from x in Model.GroupListVM
+                       select x;
+
+        }
+        @foreach (var item in main)
+        { <div class="row x_title">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <input type="checkbox" name="chkGroup" />
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <h5>Group Name :@item.Name Status @item.Status</h5>
+            </div>
+            <div class="col-lg-5 col-md-6 col-sm-8 col-xs-8 col-lg-offset-3 col-md-offset-2 col-sm-offset-0 col-xs-offset-0 ">
+
+                <button type="button" id="btnEdit" onclick="Edit(@item.ID)" class=" btn btn-dark">
+                    <span class="glyphicon glyphicon-edit"></span> Edit
+                </button>
+
+                <button type="button" class="btn btn-danger" onclick="del(@item.ID)">
+                    <span class="glyphicon glyphicon-trash"></span> Delete
+                </button>
+
+                <button type="button" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-plus"></span> ChangeStatus
+                </button>
+
+            </div>
+
+        </div>
+
+
+        }
+
+    </div>
+}
+
+
+
+

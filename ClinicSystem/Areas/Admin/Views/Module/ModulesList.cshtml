@@ -1,0 +1,205 @@
+﻿@model ClinicSystem.Areas.Admin.Models.ModuleVM
+@{
+    ViewBag.Title = "ModulesList";
+    Layout = "~/Views/Shared/HomePage.cshtml";
+}
+@section Head{
+    <script type="text/javascript">
+        function edit(id)
+        {
+            debugger;
+            window.location = '@Url.Action("New_Modules/Id", "Module")'.replace('Id', id);
+
+        }
+
+        function del(id)
+        {
+            
+            debugger;
+            $.ajax({
+                type:'post',
+                url:'/ClinicApi/api/Modules/Removee/'+id,
+                contentType:'application/json',
+                datatType:'Json',
+                data:'{}',
+                success:function (){
+                    debugger;
+                    alert("Success")
+                },
+                error: function (error) {
+                    debugger;
+                    alert(error.responseText);
+                }
+
+            })
+        }
+        function Search(name)
+        {
+            debugger;
+            var name = '@ViewBag.x';
+            $.ajax({
+                type: 'post',
+                url: '/ClinicApi/api/Module/edit?name=' + name,
+                contentType: 'application/json',
+                dataType: 'Json',
+                data: '{}',
+                success: function (data)
+                {
+                    alert("")
+                },
+                error:function(Error)
+                {
+                    alert("error")
+                },
+            })
+        }
+
+    </script>
+    }
+@section body{
+    <div class="container x_panel">
+        <div class="row x_title">
+            <div class="col-lg-11 col-md-11 col-sm-11 col-xm-11"><h4 style="color:blue">Modules List</h4></div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <img src="~/Images1/Icons/passed-exam.png" />
+            </div>
+        </div>
+        <div class="row x_title">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <input type="checkbox" name="chkSearch" />
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <input type="text" id="txtSearch" name="txtSearch" placeholder="Search" class="form-control" />
+
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+
+                <button type="button" onclick="Search()" class="btn btn-light">
+                    <span class="glyphicon glyphicon-search"></span> Search
+                </button>
+            </div>
+        </div>
+
+
+        @{
+            var main = from x in Model.ModuleList
+                       where x.SubModule == 0
+                       select x;
+
+        }
+        @foreach (var ma in main)
+        {
+            <div class="row x_title">
+
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <input type="checkbox" name="chkModuleName" />
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Modules Name  @ma.Name  Order @ma.Order</div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 col-lg-offset-6 col-md-offset-6 col-sm-offset-6 col-xs-offset-6">
+                    <button type="button" class=" btn btn-dark" id="btnEdit" onclick="edit(@ma.ID)">
+                        <span class="glyphicon glyphicon-edit"></span> Edit
+                    </button>
+
+                    <button type="button" class="btn btn-danger" onclick="del(@ma.ID)">
+                        <span class="glyphicon glyphicon-trash"></span> Delete
+                    </button>
+                </div>
+            </div>
+
+
+
+
+
+            var sub = from b in Model.ModuleList
+                      where b.SubModule == ma.ID
+                      select b;
+            foreach (var su in sub)
+            {
+
+
+                <div class="row x_title ">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 col-lg-offset-2 ">Sub Module: @su.Name Modules List Order: @su.Order </div>
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4  col-lg-offset-3 col-md-offset-5 col-sm-offset-5 col-xs-offset-5">
+                        <button type="button" class=" btn btn-dark">
+                            <span onclick="edit(@su.ID)" class=" glyphicon glyphicon-edit"></span> Edit
+                        </button>
+                        <button type="button" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span> Delete
+                        </button>
+                    </div>
+                </div>
+
+
+            }
+
+
+
+        }
+
+
+        @*<div class="row x_title ">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">Sub Module: Modules List Order:1</div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  col-lg-offset-5 col-md-offset-5 col-sm-offset-5 col-xs-offset-5">
+                    <button type="button" class=" btn btn-dark">
+                        <span class="glyphicon glyphicon-edit"></span> Edit
+                    </button>
+                    <button type="button" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-trash"></span> Delete
+                    </button>
+                </div>
+            </div>
+
+            <div class="row x_title ">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">Sub Module: Modules List Order:1</div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  col-lg-offset-5 col-md-offset-5 col-sm-offset-5 col-xs-offset-5">
+                    <button type="button" class=" btn btn-dark">
+                        <span class="glyphicon glyphicon-edit"></span> Edit
+                    </button>
+                    <button type="button" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-trash"></span> Delete
+                    </button>
+                </div>
+            </div>
+
+            <div class="row x_title ">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">Sub Module: Modules List Order:1</div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  col-lg-offset-5 col-md-offset-5 col-sm-offset-5 col-xs-offset-5">
+                    <button type="button" class=" btn btn-dark">
+                        <span class="glyphicon glyphicon-edit"></span> Edit
+                    </button>
+                    <button type="button" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-trash"></span> Delete
+                    </button>
+                </div>
+            </div>
+
+            <div class="row x_title ">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">Sub Module: Modules List Order:1</div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  col-lg-offset-5 col-md-offset-5 col-sm-offset-5 col-xs-offset-5">
+                    <button type="button" class=" btn btn-dark">
+                        <span class="glyphicon glyphicon-edit"></span> Edit
+                    </button>
+                    <button type="button" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-trash"></span> Delete
+                    </button>
+                </div>
+            </div>*@
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+}
+

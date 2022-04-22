@@ -1,0 +1,253 @@
+﻿@{
+    //ViewBag.Title = "NewModules";
+    Layout = "~/Views/Shared/HomePage.cshtml";
+}
+@section Head{ 
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        debugger;
+        var id = '@ViewBag.x';
+
+        if (id != 0)
+        {
+            debugger;
+            $("btnupdate").css("display", "block");
+            $("btnSave").css("display", "none");
+            $.ajax({
+                type: 'get',
+                url: '/ClinicApi/api/Module/edit?id='+id,
+                contentType: 'application/json',
+                datatType: 'Json',
+                
+                success: function (data) {
+                    debugger;
+                        $("#lblName").val(data.Name);
+                        $("#lblShortName").val(data.ShortName);
+                        $("#lblOrder").val(data.Order);
+                        $("#lblPath").val(data.Path);
+                        $("#slcModule").val(data.SubModule);
+                    } ,
+                    
+
+                error: function (error) {
+                    debugger;
+                    alert("error");
+                }
+
+
+                });       
+            
+        }
+        if(id==0)
+        {
+            $("btnupdate").hide();
+            $("btnSave").show();
+
+            debugger;
+            $.ajax({
+                type: 'get',
+                url: '/ClinicApi/api/Module/FillSubModules',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'Json',
+                data: '{}',
+
+                success: function (data) {
+                    debugger;
+                    $.each(data, function (key, value) {
+                        $('#slcModule').append('<option value=' + value.ID + '>' + value.Name + '</option>');
+                    });
+                },
+
+                error: function (error) {
+                    debugger;
+                    alert(error.responseText);
+                }
+            });
+
+
+
+
+
+
+
+        }
+
+
+        $("#btnDiscared").click(function () {
+            debugger;
+            window.location = '@Url.Action("ModulesList", "Module")';
+
+        });
+
+        $("#btnSave").click(function () {
+            debugger;
+            var info=new Object();
+            info.Name=$("#lblName").val();
+            info.ShortName = $("#lblShortName").val();
+            info.Order = $("#lblOrder").val();
+            info.Path = $("#lblPath").val();
+
+            $.ajax({
+                type: 'post',
+                url: '/ClinicApi/api/Module/InsertNewUser',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'Json',
+                data: JSON.stringify(info),
+                success: function (data) {
+                    debugger;
+                    alert("succsess");
+                   
+                },
+
+                error: function (error) {
+                    debugger;
+                    alert(error.responseText);
+                }
+            })
+
+
+       
+
+        })
+        $("#btnupdate").click(function () {
+            debugger;
+            var data ={
+                'ID':id,
+                'Name':$("#lblName").val(),
+                'ShortName' : $("#lblShortName").val(),
+                'Order' : $("#lblOrder").val(),
+                'Path': $("#lblPath").val(),
+                'SubModule': $("#slcModule").val(),
+            }
+            var Data1=JSON.stringify(data);
+            $.ajax({
+                type: 'post',
+                url: '/ClinicApi/api/Module/Update',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'Json',
+                data: Data1,
+                success: function (data) {
+                    debugger;
+                    alert("succsess");
+                   
+                },
+
+                error: function (error) {
+                    debugger;
+                    alert(error.responseText);
+                }
+            })   
+        })
+    })
+</script>
+
+
+
+ 
+ 
+
+
+ }
+@section Body{
+    <div class="container x_panel">
+        <div class="row x_title ">
+            <div class="col-lg-8 col-md-8 col-sm-7 col-xs-7">
+                <h4 style="color:blue">New Modul</h4>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+
+                <button id="btnSave" class="btn btn-default btn-sm btn btn-success " >
+                    <span class="glyphicon glyphicon-floppy-disk"></span> Save
+                </button>
+
+                <button  id="btnDiscared" class="btn btn-default btn-sm btn btn-danger">
+                    <span class="glyphicon glyphicon-trash"></span> Discared
+                </button>
+                <button  id="btnupdate" class="btn btn-default btn-sm btn btn-danger">
+                    <span class="glyphicon glyphicon-trash"></span> update
+                </button>
+
+
+            </div>
+        </div>
+        <div class="x_panel">
+            <div class="row x_title">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
+                    <h4>Module Information</h4>
+                </div>
+
+            </div>
+
+            <div class="row form-group">
+                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3  ">
+                    <label>Name</label>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                    <input type="text" id="lblName" name="txtName" class="form-control" />
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3  ">
+                    <label>Short Name</label>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <input type="text" id="lblShortName" name="txtShortName" class="form-control" />
+                </div>
+            </div>
+
+
+            <div class="row form-group">
+                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3    ">
+                    <label>Order</label>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                    <input type="text" id="lblOrder" name="txtOrder" class="form-control" />
+                </div>
+            </div>
+
+
+           
+                <div class="row form-group">
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3  ">
+                        <label >Path</label>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                        <input type="text" id="lblPath" name="txtPath" class="form-control" />
+                    </div>
+                </div>
+            
+
+            
+                <div class="row form-group">
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3  ">
+                        <label >Sub Module</label>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                        <select id="slcModule" class="form-control">
+                          
+                            
+                        </select>
+                    </div>
+                </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <span class="addImg inline relative" data-ghost="Ad-AddImg">
+                        <span class="icon-camera3">
+
+                        </span>
+                        <span class="uploadNewImgText greenBtn new hide">اضافة</span>
+                        <input type="file" multiple />
+                        
+                    </span>
+                </div>
+            </div>
+
+            </div>
+
+        </div>
+
+
+    
+
+}

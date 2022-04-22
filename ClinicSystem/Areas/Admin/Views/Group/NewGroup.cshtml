@@ -1,0 +1,293 @@
+﻿@{
+    ViewBag.Title = "NewGroup";
+    Layout = "~/Views/Shared/HomePage.cshtml";
+}
+@section Head{
+    
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            debugger;
+            var id = '@ViewBag.x';
+            if (id != 0) {
+                $.ajax({
+                    type: 'get',
+                    url: '/ClinicApi/api/Group/edit?id=' + id,
+                    contentType: 'application/jason',
+                    dataType: 'Json',
+                    data: '{}',
+                    success: function (data) {
+                        debugger;
+                        $("#lblName").val(data.Name);
+                        $("#lblShortName").val(data.ShortName);
+                        $("#btnStatus").val(data.Status);
+                        $("#btnStatusDate").val(data.StatusDate);
+
+                    },
+                    error: function (error) {
+                        debugger;
+                        alert(error.responseText)
+                    },
+
+                })
+            }
+            else {
+
+            }
+            $("#btnUpdate").click(function () {
+                debugger;
+                var Status;
+                if ($("#btnStatus").is(':checked')) {
+                    Status = 1;
+                }
+                else {
+                    Status = 0;
+                }
+                var data = {
+                    'ID': id,
+                    'Name': $("#lblName").val(),
+                    'ShortName': $("#lblShortName").val(),
+                    'Status': Status,
+
+                    'StatusDate': $("#btnStatusDate").val(),
+                }
+                $.ajax({
+                    type: 'post',
+                    url: '/ClinicApi/api/Group/Update',
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'Json',
+                    data: JSON.stringify(data),
+                    success: function (data) {
+                        debugger;
+                        alert("succsess");
+
+                    },
+
+                    error: function (error) {
+                        debugger;
+                        alert(error.responseText);
+                    }
+                })
+            })
+
+            $("#btnSave").click(function () {
+                debugger;
+                var info = new Object();
+                info.Name = $("#lblName").val();
+                info.ShortName = $("#lblShortName").val();
+                //if ($("#btnStatus").is(':checked')) {
+                //    return info.Status = 1;
+                //}
+                //else {
+                //    return info.Status = 0;
+                //}
+                info.Status = $("#btnStatus").val();
+                info.StatusDate = $("#btnStatusDate").val();
+
+                $.ajax({
+                    type: 'post',
+                    url: '/ClinicApi/api/Group/InsertGro',
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'Json',
+                    data: JSON.stringify(info),
+                    success: function (data) {
+                        debugger;
+                        alert("succsess");
+
+                    },
+
+                    error: function (error) {
+                        debugger;
+                        alert(error.responseText);
+                    }
+                })
+            })
+
+            $("#btnDiscared").click(function () {
+                debugger;
+                window.location = '@Url.Action("GroupList", "Group")';
+
+            })
+
+            
+                
+               
+               
+            })
+
+      
+</script>
+    }
+            @section body{
+            <div class="container x_panel">
+                <div class="row x_title ">
+                    <div class="col-lg-8 col-md-8 col-sm-7 col-xs-7">
+                        <h4 style="color:blue">New Group</h4>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+
+                        <button type="button" id="btnSave" class="btn btn-default btn-sm btn btn-success ">
+                            <span class="glyphicon glyphicon-floppy-disk"></span> Save
+                        </button>
+
+                        <button type="button" id="btnDiscared" class="btn btn-default btn-sm btn btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span> Discared
+                        </button>
+                        <button type="button" id="btnUpdate" class="btn btn-default btn-sm btn btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span> Update
+                        </button>
+
+
+                    </div>
+                </div>
+
+                <div class="row x_title x_panel">
+                    <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">
+                        <h4>Group Information</h4>
+                    </div>
+
+                </div>
+           
+                <div class="row form-group">
+                    <div class="col-lg-2 col-md-3 col-sm-2 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3  ">
+                        <label id="lblGroupName">Name</label>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                        <input type="text" id="lblName" name="txtGroupName" class="form-control" />
+                    </div>
+                </div>
+           
+                <div class="row form-group">
+                    <div class="col-lg-2 col-md-3 col-sm-2 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3  ">
+                        <label id="lblGroupShortName">Short Name</label>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <input type="text" id="lblShortName" name="txtGroupShortName" class="form-control" />
+                    </div>
+                </div>
+           
+                <div class="row form-group">
+                    <div class="col-lg-2 col-md-3 col-sm-2 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3  ">
+                        <label id="lblGroupStatus">Status:</label>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                        <input type="checkbox" id="btnStatus" name="chkGroupStatus" />Active
+                    </div>
+                </div>
+                
+                <div class="row form-group">
+                    <div class="col-lg-2 col-md-3 col-sm-2 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3  ">
+                        <label id="lblGroupStatusDate">Status Date</label>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+
+                        <div class="input-group">
+                            <input type="text" id="btnStatusDate" class="form-control" name="txtGroupStatusDate">
+                            <span class="input-group-addon"><i class="fa fa-calendar form-control-feedback"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            
+
+
+                <div class="row x_title x_panel">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 col-lg-offset-1 col-md-offset-1 col-sm-offset-0 col-xs-offset-0">
+                        <h4 style="text-align:center">Pages</h4>
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col"><input type="checkbox" name="chektableh>" /></th>
+                                    <th scope="col">Page Name</th>
+                                    <th scope="col">Page Order</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><input type="checkbox" name="chektable>" /></th>
+                                    <td>Patien tList</td>
+                                    <td>1</td>
+                                    <td><img src="~/Images1/Icons/add-icon-76240.png" style="width:30px;height:30px" /></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><input type="checkbox" name="chektable>" /></th>
+                                    <td>New Patien</td>
+                                    <td>2</td>
+                                    <td><img src="~/Images1/Icons/add-icon-76240.png" style="width:30px;height:30px" /></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><input type="checkbox" name="chektable>" /></th>
+                                    <td>Visit List</td>
+                                    <td>1</td>
+                                    <td><img src="~/Images1/Icons/add-icon-76240.png" style="width:30px;height:30px" /></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><input type="checkbox" name="chektable>" /></th>
+                                    <td>New Visit</td>
+                                    <td>2</td>
+                                    <td><img src="~/Images1/Icons/add-icon-76240.png" style="width:30px;height:30px" /></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><input type="checkbox" name="chektable>" /></th>
+                                    <td>Users</td>
+                                    <td>4</td>
+                                    <td><img src="~/Images1/Icons/add-icon-76240.png" style="width:30px;height:30px" /></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><input type="checkbox" name="chektable>" /></th>
+                                    <td>Errors Details</td>
+                                    <td>3</td>
+                                    <td>
+                                        <img src="~/Images1/Icons/add-icon-76240.png" style="width:30px;height:30px" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3">
+                        <h4 style="text-align:center">Accessed</h4>
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col"><input type="checkbox" name="chektableh2>" /> </th>
+                                    <th scope="col">Page Name</th>
+                                    <th scope="col">Page Order</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><input type="checkbox" name="chektable2>" /></th>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td><img src="~/Images1/Icons/remove-icon-png-26.png" style="width:30px;height:30px" /></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><input type="checkbox" name="chektable2>" /></th>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td><img src="~/Images1/Icons/remove-icon-png-26.png" style="width:30px;height:30px" /></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><input type="checkbox" name="chektable2>" /></th>
+                                    <td>Larry</td>
+                                    <td>the Bird</td>
+                                    <td>
+                                        <img src="~/Images1/Icons/remove-icon-png-26.png" style="width:30px;height:30px" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+
+            }
+
+

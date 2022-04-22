@@ -1,0 +1,15 @@
+C:\inetpub\wwwroot\ClinicSystem\ClinicSystem\bin\ClinicSystem.dll.config
+C:\inetpub\wwwroot\ClinicSystem\ClinicSystem\bin\ClinicSystem.dll
+C:\inetpub\wwwroot\ClinicSystem\ClinicSystem\bin\ClinicSystem.pdb
+C:\inetpub\wwwroot\ClinicSystem\ClinicSystem\obj\Debug\ClinicSystem.dll
+C:\inetpub\wwwroot\ClinicSystem\ClinicSystem\obj\Debug\ClinicSystem.pdb
+C:\inetpub\wwwroot\ClinicSystem\ClinicSystem\bin\EntityFramework.dll
+C:\inetpub\wwwroot\ClinicSystem\ClinicSystem\bin\EntityFramework.SqlServer.dll
+C:\inetpub\wwwroot\ClinicSystem\ClinicSystem\bin\EntityFramework.xml
+C:\inetpub\wwwroot\ClinicSystem\ClinicSystem\bin\EntityFramework.SqlServer.xml
+C:\inetpub\wwwroot\ClinicSystem\ClinicSystem\bin\DataAccess.dll
+C:\inetpub\wwwroot\ClinicSystem\ClinicSystem\bin\DataAccess.pdb
+C:\inetpub\wwwroot\ClinicSystem\ClinicSystem\bin\DataAccess.dll.config
+C:\inetpub\wwwroot\ClinicSystem\ClinicSystem\obj\Debug\ClinicSystem.csprojAssemblyReference.cache
+C:\inetpub\wwwroot\ClinicSystem\ClinicSystem\obj\Debug\ClinicSystem.csproj.CoreCompileInputs.cache
+C:\inetpub\wwwroot\ClinicSystem\ClinicSystem\obj\Debug\ClinicSystem.csproj.CopyComplete
